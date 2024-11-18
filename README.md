@@ -5,7 +5,7 @@
 ---
 
 ## 必要要件
-- VRChat Creator Companion 経由でインストールする [**UdonSharp 1.x**](https://github.com/vrchat-community/UdonSharp)  
+- [VRChat Creator Companion(VCC)](https://github.com/vrchat-community/creator-companion) 経由でインストールする [**UdonSharp 1.x**](https://github.com/vrchat-community/UdonSharp)  
 - [**SaccFlightAndVehicles 1.63**](https://github.com/Sacchan-VRC/SaccFlightAndVehicles/tree/1.63)  
 - [UdonToolkit](https://github.com/orels1/UdonToolkit/)  
 - [InariUdon](https://github.com/esnya/InariUdon/)  
