@@ -91,4 +91,89 @@
 2. Unityの「Package Manager」ウィンドウを開きます。  
 3. 「Add package from git URL」をクリックします。  
 4. 次のURLを入力し、「Add」をクリックします：  
-   `git+https://github.com/esnya/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons-ucs`  
+   `git+https://github.com/esnya/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons-ucs`
+
+---
+
+### 追加資料(整備中)
+以下に、 **このスクリプトの機能** の簡単な説明を追加しています(LLMを用いて作成している為その点はご留意下さい)
+
+#### **1. 仮想通貨管理システム**
+| **スクリプト名**               | **説明**                     |
+|-------------------------------|-----------------------------|
+| `GetMoneyOnExplode.cs`        | 爆発時に仮想通貨を加算する。   |
+| `SFEXT_UdonChips.cs`          | 仮想通貨（UdonChips）の管理を行う。 |
+
+#### **2. エディタ拡張（Editor関連）**
+| **スクリプト名**                          | **説明**                                 |
+|------------------------------------------|-----------------------------------------|
+| `ESFADebugTools.cs`                      | デバッグツール。オブジェクト固定操作などを提供。 |
+| `ESFAMenu.cs`                            | メニューにカスタム機能を追加。            |
+| `ESFAUI.cs`                              | UI関連の補助機能を提供。                  |
+| `SAV_KeyboardControlsEditor.cs`          | キーボード操作用カスタムエディタ。         |
+| `SAV_PassengerFunctionsControllerEditor.cs` | 乗客用関数のカスタムエディタ。             |
+| `SaccEntityEditor.cs`                    | エンティティ編集や検証ツール。             |
+| `SFEditorUtility.cs`                     | エディタ用ユーティリティ。                 |
+| `SFGizmoDrawer.cs`                       | ギズモ描画（視覚的デバッグ）を提供。        |
+
+#### **3. アクセサリ関連**
+| **スクリプト名**               | **説明**                                    |
+|-------------------------------|--------------------------------------------|
+| `CatapultController.cs`       | カタパルトの動作を制御。                      |
+| `DrogueHead.cs`               | ドローグシュートの操作を管理。                 |
+| `GroundWindIndicator.cs`      | 地上の風向指示器を制御。                      |
+| `PickupChock.cs`              | 航空機の車輪止めを制御。                      |
+| `RemoteThrottle.cs`           | リモートスロットルを操作可能にする。           |
+| `WheelDriver.cs`              | 車輪駆動システムを制御。                      |
+| `WheelLock.cs`                | 車輪ロック機構を提供。                        |
+| `Windsock.cs`                 | 風向きを表示する吹流しを制御。                 |
+
+#### **4. 航空機システム（Avionics）**
+| **スクリプト名**               | **説明**                                    |
+|-------------------------------|--------------------------------------------|
+| `AuralWarnings.cs`            | 音声警告システムを提供。                     |
+| `GPWS.cs`                     | 地上接近警報システムを制御。                  |
+| `WindIndicator.cs`            | 風向指示器を制御。                           |
+
+#### **5. ダイヤル操作（DFUNC）**
+| **スクリプト名**                        | **説明**                                 |
+|-----------------------------------------|-----------------------------------------|
+| `DFUNCP_IHaveControl.cs`                | 操縦権限の設定管理。                     |
+| `DFUNC_AdvancedCatapult.cs`             | 高度なカタパルト操作を提供。              |
+| `DFUNC_AdvancedFlaps.cs`                | 高度なフラップ操作を提供。                |
+| `DFUNC_AdvancedParkingBrake.cs`         | 高度な駐車ブレーキ制御。                  |
+| `DFUNC_AdvancedSpeedBrake.cs`           | 高度なスピードブレーキ制御。              |
+| `DFUNC_AdvancedThrustReverser.cs`       | 高度なスラストリバーサー制御。            |
+| `DFUNC_AdvancedWaterRudder.cs`          | 高度な水上舵制御。                        |
+| `DFUNC_AutoStarter.cs`                  | 自動エンジンスタート機能。                |
+| `DFUNC_LandingLight.cs`                 | 着陸灯の制御を提供。                      |
+| `DFUNC_SeatAdjuster.cs`                 | 座席調整機能を提供。                      |
+
+#### **6. 気象関連（Weather）**
+| **スクリプト名**              | **説明**                             |
+|------------------------------|-------------------------------------|
+| `FogController.cs`           | 霧の強度を制御。                     |
+| `RVR_Controller.cs`          | 滑走路視距離（RVR）を制御。            |
+| `RandomWindChanger.cs`       | ランダムな風向や風速を提供。           |
+
+#### **7. 空中給油システム**
+| **スクリプト名**               | **説明**                                             |
+|-------------------------------|---------------------------------------------------|
+| `RefuelingProbeController.cs` | 空中給油プローブの展開と接続を制御。                   |
+| `RefuelingReceiver.cs`        | 給油時の燃料受け取りを管理。                         |
+| `AdvancedTankerLogic.cs`      | 空中給油システムを補完する高度なロジックを提供。        |
+| `TankerWaypointController.cs` | 空中給油機の移動パターンやウェイポイントを制御。        |
+
+#### **8. カタパルト/着艦システム**
+| **スクリプト名**               | **説明**                                             |
+|-------------------------------|---------------------------------------------------|
+| `CatapultController.cs`       | 高度なカタパルト操作とトリガー管理を提供。           |
+| `ArrestingCableController.cs` | 着艦用ケーブルの展開と動作を制御。                   |
+| `CatapultReadySignal.cs`      | 発射準備完了のシグナル表示を制御。                   |
+
+#### **9. アクセサリ関連（高度な機能）**
+| **スクリプト名**                  | **説明**                                  |
+|----------------------------------|------------------------------------------|
+| `AdvancedWheelLock.cs`           | 車輪ロックの高度な制御を提供。              |
+| `DynamicWingFoldController.cs`   | 可動翼の折りたたみ制御（空母運用を想定）。   |
+| `AirRefuelingHUD.cs`             | 空中給油用のHUDインジケーターを提供。        |
