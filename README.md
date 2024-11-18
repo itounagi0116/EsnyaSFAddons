@@ -177,3 +177,36 @@
 | `AdvancedWheelLock.cs`           | 車輪ロックの高度な制御を提供。              |
 | `DynamicWingFoldController.cs`   | 可動翼の折りたたみ制御（空母運用を想定）。   |
 | `AirRefuelingHUD.cs`             | 空中給油用のHUDインジケーターを提供。        |
+
+---
+
+| **エスニアSFアドオン スクリプト名**      | **Inari依存関係**                                         | **Toolkit依存関係**                                       |
+|----------------------------------------|---------------------------------------------------------|---------------------------------------------------------|
+| **UI関連**                             |                                                         |                                                         |
+| ESFAUI.cs                              | `MultiTextLoader` (Inari)                               |                                                         |
+| UniversalTracker.cs                    |                                                         | `UniversalTracker` (Toolkit)                            |
+| UniversalAction.cs                     |                                                         | `InteractTrigger`, `AreaTrigger` (Toolkit)              |
+| **フォグ・環境制御**                   |                                                         |                                                         |
+| FogController.cs                       |                                                         | `FogAdjustment` (Toolkit)                               |
+| RVR_Controller.cs                      |                                                         |                                                         |
+| **トリガー関連**                       |                                                         |                                                         |
+| AreaTrigger.cs                         |                                                         | `AreaTrigger` (Toolkit)                                 |
+| InteractTrigger.cs                     |                                                         | `InteractTrigger` (Toolkit)                             |
+| PlatformTrigger.cs                     |                                                         | `PlatformTrigger` (Toolkit)                             |
+| RespawnTrigger.cs                      |                                                         | `RespawnTrigger` (Toolkit)                              |
+| **プレイヤー操作**                     |                                                         |                                                         |
+| PlayerMovementModifier.cs              |                                                         | `PlayerMovementModifier` (Toolkit)                      |
+| LerpedFollower.cs                      |                                                         | `LerpedFollower` (Toolkit)                              |
+| **アニメーション**                     |                                                         |                                                         |
+| ClockDriver.cs                         | `ClockAnimationStarter` (Inari)                         |                                                         |
+| AnimatorDriver.cs                      | `AnimatorDriver` (Inari)                                |                                                         |
+| **画像・素材制御**                     |                                                         |                                                         |
+| ShaderFeeder.cs                        |                                                         |                                                         |
+| AbstractImageDownloader.cs             | `AbstractImageDownloader`, `MultiImageDownloader` (Inari)|                                                         |
+| **ネットワーク関連**                   |                                                         |                                                         |
+| NetworkedTrigger.cs                    |                                                         | `NetworkedTrigger` (Toolkit)                            |
+| **無線通信**                           |                                                         |                                                         |
+| TransceiverPickupTrigger.cs            |                                                         |                                                         |
+| **その他**                             |                                                         |                                                         |
+| SecretActions.cs                       |                                                         | `SecretActions` (Toolkit)                               |
+| SoundOcclusion.cs                      |                                                         | `SoundOcclusion` (Toolkit)                              |
