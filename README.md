@@ -210,3 +210,5 @@
 | **その他**                             |                                                         |                                                         |
 | SecretActions.cs                       |                                                         | `SecretActions` (Toolkit)                               |
 | SoundOcclusion.cs                      |                                                         | `SoundOcclusion` (Toolkit)                              |
+
+依存関係については、こちらで見るのを推奨→ `https://github.com/Unity-Technologies/com.unity.search.extensions.git?path=package`
