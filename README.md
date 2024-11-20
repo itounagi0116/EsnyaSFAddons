@@ -2,6 +2,8 @@
 
 [SaccFlightAndVehicles](https://github.com/Sacchan-VRC/SaccFlightAndVehicles)用のアドオンとユーティリティです。
 
+[![GitHub license](https://img.shields.io/github/license/SeaeeesSan/SimpleFolderIcon)](https://github.com/SeaeeesSan/SimpleFolderIcon/blob/master/LICENSE)
+
 ---
 
 ## 必要要件
