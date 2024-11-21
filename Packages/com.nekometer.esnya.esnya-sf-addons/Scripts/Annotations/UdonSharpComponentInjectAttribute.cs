@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.SceneManagement;
-using UnityEngine;
 using System.Reflection;
-using UdonToolkit;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using UdonSharp;
+using UdonToolkit;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -21,58 +22,81 @@ namespace EsnyaSFAddons.Annotations
 #endif
     {
 #if !COMPILER_UDONSHARP && UNITY_EDITOR
+        private static Dictionary<Type, UdonSharpBehaviour[]> componentCache = new Dictionary<Type, UdonSharpBehaviour[]>();
+
         public override void BeforeGUI(SerializedProperty property)
         {
             if (!property.isArray) EditorGUILayout.BeginHorizontal();
         }
+
         public override void AfterGUI(SerializedProperty property)
         {
             if (GUILayout.Button("Force Update", GUILayout.ExpandWidth(false)))
             {
-                AutoSetup((property.serializedObject.targetObject as Component).gameObject.scene);
+                InjectComponents(property.serializedObject.targetObject as Component);
             }
             if (!property.isArray) EditorGUILayout.EndHorizontal();
             EditorGUILayout.HelpBox("Auto injected by script.", MessageType.Info);
         }
 
-        public static void AutoSetup(Scene scene)
+        public static void InjectComponents(Component targetComponent)
         {
-            var rootGameObjects = scene.GetRootGameObjects();
-            var usharpComponents = rootGameObjects
-                .SelectMany(o => o.GetComponentsInChildren<UdonSharpBehaviour>(true))
-                .Where(c => c != null)
-                .GroupBy(component => component.GetType())
-                .SelectMany(group =>
-                {
-                    var type = group.Key;
-                    var fields = type.GetFields().Where(f => f.GetCustomAttribute<UdonSharpComponentInjectAttribute>() != null).ToArray();
-                    return group.SelectMany(component => fields.Select(field => (component, field)));
-                });
+            if (targetComponent == null) return;
 
-            foreach (var (component, field) in usharpComponents)
+            var gameObject = targetComponent.gameObject;
+            var udonSharpBehaviour = targetComponent as UdonSharpBehaviour;
+            if (udonSharpBehaviour == null) return;
+
+            var type = udonSharpBehaviour.GetType();
+            var fields = type.GetFields().Where(f => f.GetCustomAttribute<UdonSharpComponentInjectAttribute>() != null).ToArray();
+
+            foreach (var field in fields)
             {
                 var isArray = field.FieldType.IsArray;
                 var valueType = isArray ? field.FieldType.GetElementType() : field.FieldType;
                 var isComponent = valueType.IsSubclassOf(typeof(UdonSharpBehaviour));
-                var variableName = field.Name;
 
                 if (isArray)
                 {
-                    var components = isComponent
-                        ? rootGameObjects.SelectMany(o => o.GetComponentsInChildren(valueType)).ToArray()
-                        : rootGameObjects.SelectMany(o => o.GetComponentsInChildren(valueType)).ToArray();
-                    var value = field.FieldType.GetConstructor(new[] { typeof(int) }).Invoke(new object[] { components.Length });
-                    Array.Copy(components, value as Array, components.Length);
-                    field.SetValue(component, value);
+                    var components = FindObjectsOfType(valueType);
+                    if (components != null)
+                    {
+                        var value = field.FieldType.GetConstructor(new[] { typeof(int) }).Invoke(new object[] { components.Length });
+                        Array.Copy(components, value as Array, components.Length);
+                        field.SetValue(udonSharpBehaviour, value);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Failed to find components of type {valueType}");
+                    }
                 }
                 else
                 {
-                    if (isComponent) field.SetValue(component, rootGameObjects.SelectMany(o => o.GetComponentsInChildren(valueType)).FirstOrDefault());
-                    else field.SetValue(component, rootGameObjects.SelectMany(o => o.GetComponentsInChildren(valueType)).FirstOrDefault());
+                    if (isComponent)
+                    {
+                        if (!componentCache.TryGetValue(valueType, out var cachedComponents))
+                        {
+                            cachedComponents = FindObjectsOfType(valueType).Cast<UdonSharpBehaviour>().ToArray();
+                            componentCache[valueType] = cachedComponents;
+                        }
+                        field.SetValue(udonSharpBehaviour, cachedComponents.FirstOrDefault());
+                    }
+                    else
+                    {
+                        var component = FindObjectsOfType(valueType).FirstOrDefault();
+                        if (component != null)
+                        {
+                            field.SetValue(udonSharpBehaviour, component);
+                        }
+                        else
+                        {
+                            Debug.LogError($"Failed to find component of type {valueType}");
+                        }
+                    }
                 }
-
-                EditorUtility.SetDirty(component);
             }
+
+            EditorUtility.SetDirty(udonSharpBehaviour);
         }
 
         [InitializeOnLoadMethod]
@@ -80,7 +104,13 @@ namespace EsnyaSFAddons.Annotations
         {
             EditorApplication.playModeStateChanged += (PlayModeStateChange e) =>
             {
-                if (e == PlayModeStateChange.EnteredPlayMode) AutoSetup(SceneManager.GetActiveScene());
+                if (e == PlayModeStateChange.EnteredPlayMode)
+                {
+                    foreach (var udonSharpBehaviour in FindObjectsOfType<UdonSharpBehaviour>())
+                    {
+                        InjectComponents(udonSharpBehaviour);
+                    }
+                }
             };
         }
 
@@ -90,7 +120,10 @@ namespace EsnyaSFAddons.Annotations
 
             public bool OnBuildRequested(VRCSDKRequestedBuildType requestedBuildType)
             {
-                AutoSetup(SceneManager.GetActiveScene());
+                foreach (var udonSharpBehaviour in FindObjectsOfType<UdonSharpBehaviour>())
+                {
+                    InjectComponents(udonSharpBehaviour);
+                }
                 return true;
             }
         }
