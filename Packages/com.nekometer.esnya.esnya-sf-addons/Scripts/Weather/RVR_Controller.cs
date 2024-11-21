@@ -1,10 +1,8 @@
-﻿
 using UdonSharp;
 using UdonToolkit;
 using UnityEngine;
 using VRC.SDK3.Components;
 using VRC.SDKBase;
-using SaccFlightAndVehicles;
 
 namespace EsnyaSFAddons.Weather
 {
@@ -58,42 +56,44 @@ namespace EsnyaSFAddons.Weather
         /// <summary>
         /// Initial value of fog density.
         /// </summary>
-        [UdonSynced(UdonSyncMode.Smooth)][FieldChangeCallback(nameof(Value))] public float _value;
-        private float Value
+        [UdonSynced(UdonSyncMode.Smooth)]
+        public float FogValue
         {
+            get => _fogValue;
             set
             {
-                _value = Mathf.Clamp01(value);
-                if (!Networking.IsOwner(gameObject)) SetHandlePosition();
+                _fogValue = Mathf.Clamp01(value);
+                if (!Networking.IsOwner(gameObject)) ResetHandlePosition();
 
-                RenderSettings.fogDensity = fogCurve.Evaluate(_value);
-                if (skyboxMaterial) skyboxMaterial.SetFloat(parameterName, parameterCurve.Evaluate(_value));
+                RenderSettings.fogDensity = fogCurve.Evaluate(_fogValue);
+                if (skyboxMaterial) skyboxMaterial.SetFloat(parameterName, parameterCurve.Evaluate(_fogValue));
             }
-            get => _value;
         }
+        private float _fogValue;
 
         private void Start()
         {
             localRotation = transform.localRotation;
             pickup = (VRCPickup)GetComponent(typeof(VRCPickup));
             skyboxMaterial = controlSkybox ? RenderSettings.skybox : null;
-            SetHandlePosition();
+            ResetHandlePosition();
         }
 
         private void Update()
         {
             if (!pickup.IsHeld) return;
-            Value = Vector3.Dot(transform.localPosition, Vector3.forward) / handleDistance;
+
+            FogValue = Vector3.Dot(transform.localPosition, Vector3.forward) / handleDistance;
         }
 
         public override void OnDrop()
         {
-            SetHandlePosition();
+            ResetHandlePosition();
         }
 
-        private void SetHandlePosition()
+        private void ResetHandlePosition()
         {
-            transform.localPosition = Vector3.forward * Value * handleDistance;
+            transform.localPosition = Vector3.forward * FogValue * handleDistance;
             transform.localRotation = localRotation;
         }
     }
