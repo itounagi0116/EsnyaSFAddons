@@ -1,4 +1,3 @@
-﻿
 using SaccFlightAndVehicles;
 using UdonSharp;
 using UdonToolkit;
@@ -42,10 +41,7 @@ namespace EsnyaSFAddons.DFUNC
         [HideIf("@!sendOnMax")] public string onMax = "SFEXT_G_SliderMax";
 
         private string triggerAxis;
-        private bool prevTrigger;
         private bool isSelected;
-        private float originValue;
-        private Vector3 originPosition;
         private Transform controlsRoot;
         private VRCPlayerApi.TrackingDataType trackingHand;
 
@@ -53,20 +49,102 @@ namespace EsnyaSFAddons.DFUNC
         private bool isPilot;
         private SaccEntity entity;
 
-        private float Value
+        private abstract class InputHandler
+        {
+            public abstract float GetValue(float currentValue);
+        }
+
+        private class VRInputHandler : InputHandler
+        {
+            private readonly DFUNC_Slider slider;
+            private bool prevTrigger;
+            private float originValue;
+            private Vector3 originPosition;
+
+            public VRInputHandler(DFUNC_Slider slider)
+            {
+                this.slider = slider;
+            }
+
+            public override float GetValue(float currentValue)
+            {
+                var trigger = Input.GetAxisRaw(slider.triggerAxis) > 0.75f;
+                if (trigger)
+                {
+                    var handPosition = slider.controlsRoot.InverseTransformPoint(Networking.LocalPlayer.GetTrackingData(slider.trackingHand).position);
+                    if (!prevTrigger)
+                    {
+                        originValue = currentValue;
+                        originPosition = handPosition;
+                    }
+                    else
+                    {
+                        currentValue = Mathf.Clamp01(originValue + Vector3.Dot(handPosition - originPosition, slider.vrAxis) * slider.vrSensitivity);
+                    }
+                }
+                prevTrigger = trigger;
+                return currentValue;
+            }
+        }
+
+        private class DesktopInputHandler : InputHandler
+        {
+            private readonly DFUNC_Slider slider;
+
+            public DesktopInputHandler(DFUNC_Slider slider)
+            {
+                this.slider = slider;
+            }
+
+            public override float GetValue(float currentValue)
+            {
+                if (Input.GetKeyDown(slider.desktopIncrease))
+                {
+                    if (slider.desktopLoop)
+                    {
+                        currentValue = slider.Loop01(currentValue + slider.desktopStep);
+                    }
+                    else
+                    {
+                        currentValue += slider.desktopStep;
+                    }
+                }
+                else if (Input.GetKeyDown(slider.desktopDecrease))
+                {
+                    if (slider.desktopLoop)
+                    {
+                        currentValue = slider.Loop01(currentValue - slider.desktopStep);
+                    }
+                    else
+                    {
+                        currentValue -= slider.desktopStep;
+                    }
+                }
+                return currentValue;
+            }
+        }
+
+        private InputHandler inputHandler;
+
+        public float Value
+        {
+            set => _value = Mathf.Clamp01(value);
+            get => _value;
+        }
+
+        public float RawValue
         {
             set
             {
-                var clampedValue = Mathf.Clamp01(value);
-                if (writePublicVariable && targetBehaviour) targetBehaviour.SetProgramVariable(targetVariableName, clampedValue);
-                if (writeAnimatorParameter && targetAnimator) targetAnimator.SetFloat(targetAnimatorParameterName, clampedValue);
-                if (clampedValue != _value && entity)
+                if (writePublicVariable && targetBehaviour) targetBehaviour.SetProgramVariable(targetVariableName, value);
+                if (writeAnimatorParameter && targetAnimator) targetAnimator.SetFloat(targetAnimatorParameterName, value);
+                if (value != _value && entity)
                 {
                     if (sendOnChange) entity.SendEventToExtensions(onChange);
-                    if (sendOnMin && Mathf.Approximately(clampedValue, 0)) entity.SendEventToExtensions(onMin);
-                    if (sendOnMax && Mathf.Approximately(clampedValue, 1)) entity.SendEventToExtensions(onMax);
+                    if (sendOnMin && Mathf.Approximately(value, 0)) entity.SendEventToExtensions(onMin);
+                    if (sendOnMax && Mathf.Approximately(value, 1)) entity.SendEventToExtensions(onMax);
                 }
-                _value = clampedValue;
+                _value = value;
             }
             get => _value;
         }
@@ -84,7 +162,6 @@ namespace EsnyaSFAddons.DFUNC
 
         public void DFUNC_Selected()
         {
-            prevTrigger = false;
             isSelected = true;
         }
         public void DFUNC_Deselected()
@@ -140,6 +217,18 @@ namespace EsnyaSFAddons.DFUNC
             Value = Value <= 0.0f ? 1.0f : Value - desktopStep;
         }
 
+        private void Start()
+        {
+            if (Networking.LocalPlayer.IsUserInVR())
+            {
+                inputHandler = new VRInputHandler(this);
+            }
+            else
+            {
+                inputHandler = new DesktopInputHandler(this);
+            }
+        }
+
         private void Update()
         {
             if (isPilot)
@@ -161,21 +250,7 @@ namespace EsnyaSFAddons.DFUNC
         {
             if (isSelected)
             {
-                var trigger = Input.GetAxisRaw(triggerAxis) > 0.75f;
-                if (trigger)
-                {
-                    var handPosition = controlsRoot.InverseTransformPoint(Networking.LocalPlayer.GetTrackingData(trackingHand).position);
-                    if (!prevTrigger)
-                    {
-                        originValue = Value;
-                        originPosition = handPosition;
-                    }
-                    else
-                    {
-                        Value = Mathf.Clamp01(originValue + Vector3.Dot(handPosition - originPosition, vrAxis) * vrSensitivity);
-                    }
-                }
-                prevTrigger = trigger;
+                _value = inputHandler.GetValue(_value);
             }
         }
     }
