@@ -8,18 +8,27 @@
   "author": {
     "name": "esnya"
   },
-  "type": "library",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esnya/EsnyaSFAddons.git"
+  },
   "dependencies": {
     "com.nekometer.esnya.inari-udon": "9.1.0",
     "com.unity.textmeshpro": "2.1.6",
     "sh.orels.udontoolkit": "1.1.2"
   },
+  "vpmDependencies": {
+    "com.vrchat.worlds": "3.1.1",
+    "com.vrchat.udonsharp": "1.1.7",
+    "com.nekometer.esnya.inari-udon": "9.1.0",
+    "sh.orels.udontoolkit": "1.1.2"
+  },
   "legacyFolders": {
     "Assets\\EsnyaSFAddons": ""
   },
-  "unity": "2019.4",
-  "vpmDependencies": {
-    "com.vrchat.worlds": "3.1.1",
-    "com.vrchat.udonsharp": "1.1.7"
+  "unity": "2022.3",
+  "homepage": "https://github.com/esnya/EsnyaSFAddons#readme",
+  "bugs": {
+    "url": "https://github.com/esnya/EsnyaSFAddons/issues"
   }
 }
