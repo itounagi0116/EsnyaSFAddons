@@ -19,13 +19,17 @@
   },
   "vpmDependencies": {
     "com.vrchat.worlds": "3.1.1",
-    "com.vrchat.udonsharp": "1.1.7",
     "com.nekometer.esnya.inari-udon": "9.1.0",
     "sh.orels.udontoolkit": "1.1.2"
   },
   "legacyFolders": {
-    "Assets\\EsnyaSFAddons": ""
+    "Assets\\EsnyaSFAddons": "",
+    "Assets\\UdonSharp": "b031f928e5c709b4887f6513084aaa51",
+    "Assets\\Gizmos\\UdonSharp": "6e940dfc89ce4ca41b651e05bc21be6b"
   },
+  "legacyPackages": [
+    "com.vrchat.udonsharp"
+  ],
   "unity": "2022.3",
   "homepage": "https://github.com/esnya/EsnyaSFAddons#readme",
   "bugs": {
