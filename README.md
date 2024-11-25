@@ -2,7 +2,7 @@
 
 ![ライセンスバッジ](https://img.shields.io/badge/ライセンス-MIT-007EC6)
 
-[日本語](https://github.com/itounagi0116/EsnyaSFAddons/blob/master/README_JP.md)
+[![日本語](https://img.shields.io/badge/言語-日本語-4caf50?style=flat-square&logo=example&logoColor=white)](README_JP.md)
 
 Addons and utilities for [SaccFlightAndVehicles](https://github.com/Sacchan-VRC/SaccFlightAndVehicles).
 
