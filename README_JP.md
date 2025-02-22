@@ -28,10 +28,8 @@
 ![URL追加ボタン](https://user-images.githubusercontent.com/2088693/217635570-44827dc0-cb20-4e4d-a4d3-7ef1e1041d6f.png)  
 
 4. 次のURLを入力し、「Add」ボタンをクリックします。  
-   - **安定版リリース**:  
-     `git+https://github.com/esnya/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons`  
-   - **ベータ版リリース**:  
-     `git+https://github.com/esnya/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons#beta`  
+   - **リリース**:  
+     `git+https://github.com/itounagi0116/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons`  
      
 ![URL入力例](https://user-images.githubusercontent.com/2088693/217635892-7a612e44-f09f-452c-9741-d981542fc412.png)  
 
