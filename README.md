@@ -36,7 +36,7 @@ Custom inspector for SaccEntity with validation and autofill buttons.
 ![image](https://user-images.githubusercontent.com/2088693/148947839-bf8f137f-38dd-4faf-8d96-b9fffd6b6c99.png)
 
 Auto find and fill reference for DFUNCs and Extentons. Also finds specified named GameObject below:
-- InVehicleOnly
+- EnableInVehicle
 - HoldingOnly
 - CenterOfMass
 - SwitchFunctionSound
