@@ -10,8 +10,9 @@
 
 ## **必要要件**  
 - **UdonSharp 1.x**（VRChat Creator Companion経由でインストール）  
-- **SaccFlightAndVehicles 1.63**  
+- **SaccFlightAndVehicles 1.7 Fix**  
 - **[InariUdon](https://github.com/esnya/InariUdon/)**  
+- **[UdonToolkit](https://github.com/orels1/UdonToolkit)**
 
 ---
 
