@@ -73,29 +73,3 @@ SaccVehicleSeatのTargetEyeHeightやFloatScriptのFloatPointsにギズモを追�
 ![SFRuntimeSetup](https://user-images.githubusercontent.com/2088693/142752139-16044ef1-ca37-40ce-b437-f3d3f4cec1c8.png)  
 ワールド読み込み時に、ワールドで指定されたパラメーターをすべての乗り物に適用します（プレハブのオーバーライドなし）。  
 
----
-
-## **SFUdonChips**  
-
-UdonChipsとSaccFlightを統合します。  
-
-#### **SAV_UdonChips**  
-![SAV_UdonChips](https://user-images.githubusercontent.com/2088693/142752173-58ba708d-1f6f-4f80-9457-b394f02baa47.png)  
-
----
-
-### **SFUdonChipsの必要要件**  
-- **[UdonChips-fork](https://github.com/esnya/UdonChips-fork)**  
-
----
-
-### **SFUdonChipsのインストール方法**  
-
-1. 必要な要件をすべてインストールします。  
-2. **Package Manager** ウィンドウを開きます。  
-3. 「+」ボタンをクリックし、**`Add package from git URL`** を選択します。  
-4. 次のURLを入力し、「Add」ボタンをクリックします:  
-   - **安定版リリース**:  
-     `git+https://github.com/esnya/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons-ucs`  
-   - **ベータ版リリース**:  
-     `git+https://github.com/esnya/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons-ucs#beta`  
