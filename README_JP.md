@@ -47,7 +47,7 @@ SaccEntity用のカスタムインスペクターで、バリデーションや�
 
 ![自動入力機能](https://user-images.githubusercontent.com/2088693/148947839-bf8f137f-38dd-4faf-8d96-b9fffd6b6c99.png)  
 DFUNCや拡張機能の参照を自動検索・入力します。また、以下の名前が付いたGameObjectも自動的に検出します:  
-- InVehicleOnly  
+- EnableInVehicle  
 - HoldingOnly  
 - CenterOfMass  
 - SwitchFunctionSound  
