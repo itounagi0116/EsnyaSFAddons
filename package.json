@@ -1,6 +1,6 @@
 {
-  "name": "esnya-sf-addons",
-  "version": "1.0.0",
+  "name": "com.esnya.sfaddons",
+  "version": "1.0.1",
   "private": true,
   "license": "MIT",
   "scripts": {
