@@ -63,10 +63,3 @@ Add gizmos for TargetEyeHeight in SaccVehicleSeat and FloatPoints in FloatScript
 ![image](https://user-images.githubusercontent.com/2088693/142752139-16044ef1-ca37-40ce-b437-f3d3f4cec1c8.png)
 
 Applies the parameters specified in the world to all vehicles when world loaded without prefab overrides.
-
-### Installation
-1. Install all requirements.
-2. Open PackageManager window.
-3. Click `add package from git url`.
-4. Input `git+https://github.com/esnya/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons-ucs` and click `Add`.
-
