@@ -63,17 +63,6 @@ Add gizmos for TargetEyeHeight in SaccVehicleSeat and FloatPoints in FloatScript
 
 Applies the parameters specified in the world to all vehicles when world loaded without prefab overrides.
 
-## SFUdonChips
-
-Integrate UdonChips with SaccFlight.
-
-#### SAV_UdonChips
-![image](https://user-images.githubusercontent.com/2088693/142752173-58ba708d-1f6f-4f80-9457-b394f02baa47.png)
-
-
-### Requirements of SFUdonChips
-- [UdonChips-fork](https://github.com/esnya/UdonChips-fork)
-
 ### Installation
 1. Install all requirements.
 2. Open PackageManager window.
