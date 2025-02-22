@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Reflection;
+using UdonToolkit;
 using UdonSharp;
 
 #if UNITY_EDITOR

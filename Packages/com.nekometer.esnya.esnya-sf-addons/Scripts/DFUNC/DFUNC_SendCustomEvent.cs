@@ -1,5 +1,6 @@
 ﻿
 using UdonSharp;
+using UdonToolkit;
 using VRC.Udon.Common.Interfaces;
 
 namespace EsnyaSFAddons.DFUNC

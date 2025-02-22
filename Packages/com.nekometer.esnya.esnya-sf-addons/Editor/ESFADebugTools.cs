@@ -75,7 +75,8 @@ namespace EsnyaSFAddons.Editor
 
                 if (GUILayout.Button("Respawn"))
                 {
-                    foreach (var airVehicle in entity.GetComponentsInChildren<SaccAirVehicle>(true)) UdonSharpEditorUtility.GetBackingUdonBehaviour(airVehicle).SendCustomEvent(nameof(SaccAirVehicle.SFEXT_O_RespawnButton));
+                    foreach (var entityControl in entity.GetComponentsInChildren<SaccEntity>(true))UdonSharpEditorUtility.GetBackingUdonBehaviour(entityControl).SendCustomEvent("SFEXT_G_RespawnButton");
+
                 }
             }
 

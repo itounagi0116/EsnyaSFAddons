@@ -74,10 +74,13 @@ namespace EsnyaSFAddons.Editor.Inspector
                 airVehicle.VehicleMesh.gameObject.layer = LayerMask.NameToLayer("Walkthrough");
             }
 
-            if (entity.InVehicleOnly != null && entity.InVehicleOnly.activeSelf && ESFAUI.HelpBoxWithAutoFix($"InVehicleOnly should be deactivated.", MessageType.Warning))
+            if (entity.EnableInVehicle != null && entity.EnableInVehicle.Any(o => o.activeSelf) && ESFAUI.HelpBoxWithAutoFix($"EnableInVehicle should be properly configured.", MessageType.Warning))
             {
-                Undo.RecordObject(entity.InVehicleOnly, "Auto Fix");
-                entity.InVehicleOnly.SetActive(false);
+                foreach (var obj in entity.EnableInVehicle)
+                {
+                    Undo.RecordObject(obj, "Auto Fix");
+                    obj.SetActive(false);
+                }
             }
 
             var animatorController = animator.runtimeAnimatorController as AnimatorController;
@@ -97,20 +100,17 @@ namespace EsnyaSFAddons.Editor.Inspector
                 }
             }
 
-            if (entity.InVehicleOnly)
+            if (entity.EnableInVehicle == null || entity.EnableInVehicle.Length == 0)
             {
-                if (fixAll || ESFAUI.HelpBoxWithAutoFix($"InVehicleOnly is deprecated. Use EnableInVehicle", MessageType.Warning))
+                if (fixAll || ESFAUI.HelpBoxWithAutoFix($"EnableInVehicle is not set. Please configure it.", MessageType.Warning))
                 {
-                    Undo.RecordObjects(new Object[] { entity.InVehicleOnly, entity }, "Auto Fix");
-                    entity.InVehicleOnly.name = "EnableInVehicle";
-                    entity.InVehicleOnly.tag = "EnableInVehicle";
-                    EditorUtility.SetDirty(entity);
-                    entity.EnableInVehicle = (entity.EnableInVehicle ?? Enumerable.Empty<GameObject>()).Append(entity.InVehicleOnly).Where(o => o != null).ToArray();
-                    entity.InVehicleOnly = null;
+                    Undo.RecordObject(entity, "Auto Fix");
+                    entity.EnableInVehicle = new GameObject[] { };
                     EditorUtility.SetDirty(entity);
                 }
             }
         }
+
 
         private void OnDisable()
         {
@@ -162,7 +162,7 @@ namespace EsnyaSFAddons.Editor.Inspector
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    if (property.name == nameof(SaccEntity.InVehicleOnly) && !property.objectReferenceValue) continue;
+                    if (property.name == nameof(SaccEntity.EnableInVehicle) && !property.objectReferenceValue) continue;
 
                     EditorGUILayout.PropertyField(property, true);
                     if (property.name == nameof(SaccEntity.ExtensionUdonBehaviours))
@@ -179,7 +179,7 @@ namespace EsnyaSFAddons.Editor.Inspector
                         if (ESFAUI.MiniButton("Find")) SFEditorUtility.SetObjectArrayProperty(property, SFEditorUtility.FindDFUNCs(entity, "DialFunctions_R").Concat(SFEditorUtility.FindDFUNCs(entity, "L")));
                         if (ESFAUI.MiniButton("Align")) SFEditorUtility.AlignMFDFunctions(entity, VRC_Pickup.PickupHand.Right);
                     }
-                    else if (property.name == nameof(SaccEntity.InVehicleOnly))
+                    else if (property.name == nameof(SaccEntity.EnableInVehicle))
                     {
                         if (ESFAUI.MiniButton("Preview")) SetPreview(property, true);
                         if (ESFAUI.MiniButton("Find by Name")) property.objectReferenceValue = entity.transform.FindByName(property.name);

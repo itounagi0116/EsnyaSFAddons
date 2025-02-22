@@ -175,7 +175,16 @@ namespace EsnyaSFAddons.Accesory
             }
 
             dfunc.Launching = true;
-            dfunc.PreLaunchCatapult();
+
+            // ここを修正
+            if (dfunc.GetType().GetMethod("CatapultLaunchNow") != null)
+            {
+                dfunc.CatapultLaunchNow();
+            }
+            else
+            {
+                Debug.LogWarning("CatapultLaunchNow method is missing in DFUNC_Catapult.");
+            }
         }
 
         /// <summary>
