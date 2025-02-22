@@ -22,7 +22,7 @@ Addons and utilities for [SaccFlightAndVehicles](https://github.com/Sacchan-VRC/
 
 ![image](https://user-images.githubusercontent.com/2088693/217635570-44827dc0-cb20-4e4d-a4d3-7ef1e1041d6f.png)
 
-4. Input `git+https://github.com/esnya/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons` and click `Add`. or if you want to install beta releases, input `git+https://github.com/esnya/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons#beta`.
+4. Input `git+https://github.com/itounagi0116/EsnyaSFAddons.git?path=Packages/com.nekometer.esnya.esnya-sf-addons`  .
 
 ![image](https://user-images.githubusercontent.com/2088693/217635892-7a612e44-f09f-452c-9741-d981542fc412.png)
 
